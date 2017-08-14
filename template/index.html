@@ -9,9 +9,31 @@
     </head>
     <body>
         <div id="Toolbar">
-            <span class="selectorMenu">
+            <span class="menu" name="selector">
                 <i class="material-icons">touch_app</i>
+            </span>
+            <span class="menu" name="state">
+                <i class="material-icons">panorama_fish_eye</i>
+            </span>
+            <span class="menu" name="link">
+                <i class="material-icons">play_for_work</i>
+            </span>
+            <span class="menu" name="delete">
+                <i class="material-icons">delete_forever</i>
             </span>
         </div>
     </body>
+
+    <script>
+        const {ipcRenderer} = require('electron');
+
+        var menuItems = document.querySelectorAll('#Toolbar .menu');
+
+        for(var i = 0; i < menuItems.length; i++) {
+            menuItems[i].addEventListener('click', function(){
+                ipcRenderer.send('menuItemClick', this.getAttribute('name'));
+            });
+        }
+    </script>
+
 </html>
