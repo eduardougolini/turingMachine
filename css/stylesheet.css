@@ -1,0 +1,18 @@
+body {
+    margin: 0px;
+}
+
+#Toolbar {
+    background-color: #ccc;
+}
+
+#Toolbar .selectorMenu {
+    cursor: pointer;
+    display: block;
+    width: 30px;
+    text-align: center;
+}
+
+#Toolbar .selectorMenu:hover {
+    background-color: #7c7c7c;
+}
