@@ -10,7 +10,8 @@ ipcMain.on('menuItemClick', function(event, name) {
 });
 
 function createWindow () {
-    win = new BrowserWindow({width: 1366, height: 768})
+    win = new BrowserWindow({width: 1366, height: 768});
+    win.setMenu(null);
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'template/index.html'),
