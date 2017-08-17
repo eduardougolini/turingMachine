@@ -7,6 +7,11 @@ htmlCanvas.height = window.innerHeight;
 document.body.addEventListener('click', drawState);
 
 function drawState(event) {
+
+    if (event.clientY < 30 || selectedMenu != stateMenu) {
+        return;
+    }
+
     var canvasContext = htmlCanvas.getContext('2d');
 
     canvasContext.beginPath();

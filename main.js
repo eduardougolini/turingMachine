@@ -3,11 +3,6 @@ const path = require('path')
 const url = require('url')
 
 let win
-let selectedMenu = 'selector'
-
-ipcMain.on('menuItemClick', function(event, name) {
-    selectedMenu = name;
-});
 
 function createWindow () {
     win = new BrowserWindow({width: 1366, height: 768});
