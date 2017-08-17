@@ -7,6 +7,7 @@ html, body {
 
 #Toolbar {
     background-color: #ccc;
+    font-size: 0;
 }
 
 #Toolbar .menu {
@@ -15,6 +16,11 @@ html, body {
     width: 30px;
     height: 30px;
     text-align: center;
+    -webkit-user-select: none;
+}
+
+#Toolbar .menu.selected {
+    background-color: #7c7c7c;
 }
 
 #Toolbar .menu:hover {
