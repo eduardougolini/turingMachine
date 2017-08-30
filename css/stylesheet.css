@@ -5,6 +5,14 @@ html, body {
     overflow: hidden;
 }
 
+canvas.crosshair {
+    cursor: crosshair;
+}
+
+canvas.default {
+    cursor: default;
+}
+
 #Toolbar {
     background-color: #ccc;
     font-size: 0;

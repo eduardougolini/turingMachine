@@ -1,4 +1,4 @@
 const selectorMenu = 'selector';
 const stateMenu = 'state';
-const linkMenu = 'state';
+const linkMenu = 'link';
 const deleteMenu = 'delete';

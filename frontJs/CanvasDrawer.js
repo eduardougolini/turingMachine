@@ -24,4 +24,9 @@ function drawState(event) {
     canvasContext.stroke();
 
     stateIndex++;
+
+    statesList.push({
+       x: event.clientX,
+       y: event.clientY
+    });
 }
