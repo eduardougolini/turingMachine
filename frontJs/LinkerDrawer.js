@@ -22,7 +22,21 @@ function drawLink(event) {
 
     if (selectedObjects.length == 2) {
         drawLineBetweenCircles();
+        getTransitionData();
     }
+}
+
+function getTransitionData() {
+    var promptBox = document.querySelector('.promptBox');
+
+    promptBox.classList.remove('hidden');
+
+    var promptBoxStructure = 'Valor de leitura: <input class="readValue" type="text" /><br/>' +
+        'Valor de escrita: <input class="writeValue" type="text" /><br/>' +
+        'Orientação da escrita: <select class="writeOrientation"><option value="D">D</option><option value="E">E</option></select><br/>' +
+        '<a class="saveButton">Salvar</a>'
+
+    promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
 }
 
 function drawLineBetweenCircles() {

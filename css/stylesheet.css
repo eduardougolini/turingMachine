@@ -38,3 +38,40 @@ canvas.default {
 canvas {
     background-color: aqua;
 }
+
+.promptBox {
+    width: 450px;
+    height: 170px;
+    float: left;
+    position: absolute;
+    display: block;
+    background-color: white;
+    margin-top: calc(100vh - 50% - 85px);
+    margin-left: calc(100vw - 50% - 225px);
+    box-shadow: black 1px 1px 20px;
+    text-align: center;
+    padding-top: 35px;
+    box-sizing: border-box;
+}
+
+.promptBox input {
+    margin-bottom: 2px;
+}
+
+.promptBox select {
+    width: 145px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.saveButton {
+    margin-top: 8px;
+    padding: 5px;
+    background-color: #ccc;
+    box-shadow: black 1px 1px 6px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
