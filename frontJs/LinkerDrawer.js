@@ -10,10 +10,6 @@ function drawLink(event) {
         return;
     }
 
-    if (selectedObjects.length == 2) {
-        selectedObjects = [];
-    }
-
     for(var i in statesList) {
         if (statesList[i].hover == true) {
             selectedObjects[selectedObjects.length] = statesList[i];
@@ -21,9 +17,31 @@ function drawLink(event) {
     }
 
     if (selectedObjects.length == 2) {
+        document.body.removeEventListener('click', drawLink);
         drawLineBetweenCircles();
         getTransitionData();
     }
+}
+
+function saveTransitionData() {
+    var readValue = document.querySelector('.readValue').value;
+    var writeValue = document.querySelector('.writeValue').value;
+    var select = document.querySelector('.writeOrientation');
+    var selectedValue = select.options[select.selectedIndex].value;
+
+    transitionsMap.push({
+        'readValue': readValue,
+        'writeValue': writeValue,
+        'writeOrientation': selectedValue
+    })
+
+    selectedObjects = [];
+
+    var promptBox = document.querySelector('.promptBox');
+    promptBox.innerHTML = "";
+    promptBox.classList.add('hidden');
+
+    document.body.addEventListener('click', drawLink);
 }
 
 function getTransitionData() {
@@ -34,7 +52,7 @@ function getTransitionData() {
     var promptBoxStructure = 'Valor de leitura: <input class="readValue" type="text" /><br/>' +
         'Valor de escrita: <input class="writeValue" type="text" /><br/>' +
         'Orientação da escrita: <select class="writeOrientation"><option value="D">D</option><option value="E">E</option></select><br/>' +
-        '<a class="saveButton">Salvar</a>'
+        '<a class="saveButton" onclick="saveTransitionData()">Salvar</a>'
 
     promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
 }
