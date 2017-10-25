@@ -37,19 +37,45 @@ function runTuringMachine() {
 
 function validateState(stateIndex) {
     for (var i = 0; i < transitionsMap.length; i++) {
-        if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
-            userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
-            actualUserInputIndex++;
 
-            stateIndex = transitionsMap[i].exitState
-
-            if (statesList[stateIndex].final) {
-                success = true;
-                break;
-            }
-
-            validateState(userInput, stateIndex);
+        if (transitionsMap[i].writeOrientation == 'D') {
+            validateStateInRightOrientation(stateIndex, i);
+        } else {
+            validateStateInLeftOrientation(stateIndex, i);
         }
+
+    }
+}
+
+function validateStateInLeftOrientation(stateIndex, i) {
+    actualUserInputIndex--;
+
+    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
+        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+        actualUserInputIndex++;
+
+        stateIndex = transitionsMap[i].exitState
+
+        if (statesList[stateIndex].final) {
+            success = true;
+        }
+
+        validateState(stateIndex);
+    }
+}
+
+function validateStateInRightOrientation(stateIndex, i) {
+    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
+        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+        actualUserInputIndex++;
+
+        stateIndex = transitionsMap[i].exitState
+
+        if (statesList[stateIndex].final) {
+            success = true;
+        }
+
+        validateState(stateIndex);
     }
 }
 
