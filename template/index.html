@@ -26,6 +26,10 @@
                 <i class="material-icons">send</i>
             </span>
         </div>
+        <div class="attributesSelector hidden">
+            <a onclick="setStateType('initial')">Inicial</a>
+            <a onclick="setStateType('final')">Final</a>
+        </div>
         <div class="promptBox hidden"></div>
         <canvas></canvas>
 
@@ -34,6 +38,7 @@
         <script src="../frontJs/CanvasDrawer.js"></script>
         <script src="../frontJs/LinkerDrawer.js"></script>
         <script src="../frontJs/TuringExecutor.js"></script>
+        <script src="../frontJs/StateAttributes.js"></script>
     </body>
 
 </html>

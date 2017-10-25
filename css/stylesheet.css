@@ -53,6 +53,27 @@ canvas {
     padding-top: 35px;
     box-sizing: border-box;
 }
+.attributesSelector {
+    width: 60px;
+    height: 50px;
+    float: left;
+    position: absolute;
+    display: block;
+    background-color: white;
+    box-shadow: black 1px 1px 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.attributesSelector a {
+    display: block;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.attributesSelector a:hover {
+    background-color: #cccccc;
+}
 
 .promptBox input {
     margin-bottom: 2px;
