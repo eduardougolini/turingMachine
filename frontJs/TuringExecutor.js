@@ -1,4 +1,4 @@
-var actualUserInputIndex, success;
+var actualUserInputIndex, success, outputString;
 
 function executeTuringMachine(event) {
     var promptBox = document.querySelector('.promptBox');
@@ -21,6 +21,7 @@ function runTuringMachine() {
     actualUserInputIndex = 0;
 
     success = false;
+    outputString = ''
 
     for (var i = 0; i < statesList.length; i++) {
         if (statesList[i].initial) {
@@ -29,15 +30,16 @@ function runTuringMachine() {
     }
 
     if (success) {
-        alert('Aceito');
+        alert('Aceito - ' + outputString);
     } else {
-        alert('Não aceito');
+        alert('Não aceito - ' + outputString);
     }
 }
 
 function validateState(userInput, stateIndex) {
     for (var i = 0; i < transitionsMap.length; i++) {
         if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
+            outputString += transitionsMap[i].writeValue;
             actualUserInputIndex = userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) + transitionsMap[0].readValue.length;
 
             stateIndex = transitionsMap[i].exitState
