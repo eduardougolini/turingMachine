@@ -26,7 +26,8 @@ function drawState(event) {
     stateIndex++;
 
     statesList.push({
-       x: event.clientX,
-       y: event.clientY
+        index: statesList.length,
+        x: event.clientX,
+        y: event.clientY
     });
 }

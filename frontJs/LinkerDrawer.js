@@ -30,6 +30,8 @@ function saveTransitionData() {
     var selectedValue = select.options[select.selectedIndex].value;
 
     transitionsMap.push({
+        'entryState': selectedObjects[0].index,
+        'exitState': selectedObjects[1].index,
         'readValue': readValue,
         'writeValue': writeValue,
         'writeOrientation': selectedValue

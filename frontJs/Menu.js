@@ -12,5 +12,9 @@ for(var i = 0; i < menuItems.length; i++) {
 
         selectedMenu = this.getAttribute('name');
         this.classList.add('selected');
+
+        if (selectedMenu == executeMenu) {
+            executeTuringMachine();
+        }
     });
 }
