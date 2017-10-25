@@ -1,18 +1,20 @@
-var actualUserInputIndex, success, userInput;
+var actualUserInputIndex, success, firstUserInput, secondUserInput;
 
 function executeTuringMachine(event) {
     var promptBox = document.querySelector('.promptBox');
 
     promptBox.classList.remove('hidden');
 
-    var promptBoxStructure = 'Entrada: <input class="inputData" type="text" />' +
+    var promptBoxStructure = 'Entrada da primeira fita: <input class="inputData first" type="text" /><br/>' +
+        'Entrada da segunda fita: <input class="inputData second" type="text" /><br/>' +
         '<a class="saveButton" onclick="runTuringMachine()">Rodar</a>'
 
     promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
 }
 
 function runTuringMachine() {
-    userInput = document.querySelector('.inputData').value
+    firstUserInput = document.querySelector('.inputData.first').value
+    secondUserInput = document.querySelector('.inputData.second').value
 
     var promptBox = document.querySelector('.promptBox');
     promptBox.innerHTML = "";
@@ -29,16 +31,16 @@ function runTuringMachine() {
     }
 
     if (success) {
-        alert('Aceito - ' + userInput);
+        alert('Aceito - ' + firstUserInput + ' - ' + secondUserInput);
     } else {
-        alert('Não aceito - ' + userInput);
+        alert('Não aceito - ' + firstUserInput + ' - ' + secondUserInput);
     }
 }
 
 function validateState(stateIndex) {
     for (var i = 0; i < transitionsMap.length; i++) {
 
-        if (transitionsMap[i].writeOrientation == 'D') {
+        if (transitionsMap[i].firstTapeWriteOrientation == 'D') {
             validateStateInRightOrientation(stateIndex, i);
         } else {
             validateStateInLeftOrientation(stateIndex, i);
@@ -50,8 +52,9 @@ function validateState(stateIndex) {
 function validateStateInLeftOrientation(stateIndex, i) {
     actualUserInputIndex--;
 
-    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
-        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+    if (transitionsMap[i].entryState == stateIndex && firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
+        firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
+        secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
         actualUserInputIndex++;
 
         stateIndex = transitionsMap[i].exitState
@@ -65,8 +68,9 @@ function validateStateInLeftOrientation(stateIndex, i) {
 }
 
 function validateStateInRightOrientation(stateIndex, i) {
-    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
-        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+    if (transitionsMap[i].entryState == stateIndex && firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
+        firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
+        secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
         actualUserInputIndex++;
 
         stateIndex = transitionsMap[i].exitState

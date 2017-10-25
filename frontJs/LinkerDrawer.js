@@ -24,18 +24,25 @@ function drawLink(event) {
 }
 
 function saveTransitionData() {
-    var readValue = document.querySelector('.readValue').value;
-    var writeValue = document.querySelector('.writeValue').value;
-    var select = document.querySelector('.writeOrientation');
-    var selectedValue = select.options[select.selectedIndex].value;
+    var firstTapeReadValue = document.querySelector('.readValue.first').value;
+    var firstTapeWriteValue = document.querySelector('.writeValue.first').value;
+    var firstTapeSelect = document.querySelector('.writeOrientation.first');
+    var firstTapeSelectedValue = firstTapeSelect.options[firstTapeSelect.selectedIndex].value;
+    var secondTapeReadValue = document.querySelector('.readValue.second').value;
+    var secondTapeWriteValue = document.querySelector('.writeValue.second').value;
+    var secondTapeSelect = document.querySelector('.writeOrientation.second');
+    var secondTapeSelectedValue = secondTapeSelect.options[secondTapeSelect.selectedIndex].value;
 
     transitionsMap.push({
         'entryState': selectedObjects[0].index,
         'exitState': selectedObjects[1].index,
-        'readValue': readValue,
-        'writeValue': writeValue,
-        'writeOrientation': selectedValue
-    })
+        'firstTapeReadValue': firstTapeReadValue,
+        'firstTapeWriteValue': firstTapeWriteValue,
+        'firstTapeWriteOrientation': firstTapeSelectedValue,
+        'secondTapeReadValue': secondTapeReadValue,
+        'secondTapeWriteValue': secondTapeWriteValue,
+        'secondTapeWriteOrientation': secondTapeSelectedValue
+    });
 
     selectedObjects = [];
 
@@ -51,9 +58,12 @@ function getTransitionData() {
 
     promptBox.classList.remove('hidden');
 
-    var promptBoxStructure = 'Valor de leitura: <input class="readValue" type="text" /><br/>' +
-        'Valor de escrita: <input class="writeValue" type="text" /><br/>' +
-        'Orientação da escrita: <select class="writeOrientation"><option value="D">D</option><option value="E">E</option></select><br/>' +
+    var promptBoxStructure = 'Valor de leitura da primeira fita: <input class="readValue first" type="text" /><br/>' +
+        'Valor de escrita da primeira fita: <input class="writeValue first" type="text" /><br/>' +
+        'Orientação da escrita da primeira fita: <select class="writeOrientation first"><option value="D">D</option><option value="E">E</option></select><br/><br/>' +
+        'Valor de leitura da segunda fita: <input class="readValue second" type="text" /><br/>' +
+        'Valor de escrita da segunda fita: <input class="writeValue second" type="text" /><br/>' +
+        'Orientação da escrita da segunda fita: <select class="writeOrientation second"><option value="D">D</option><option value="E">E</option></select><br/>' +
         '<a class="saveButton" onclick="saveTransitionData()">Salvar</a>'
 
     promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
