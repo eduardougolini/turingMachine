@@ -1,4 +1,4 @@
-var actualUserInputIndex, success, outputString;
+var actualUserInputIndex, success, userInput;
 
 function executeTuringMachine(event) {
     var promptBox = document.querySelector('.promptBox');
@@ -12,7 +12,7 @@ function executeTuringMachine(event) {
 }
 
 function runTuringMachine() {
-    var userInput = document.querySelector('.inputData').value
+    userInput = document.querySelector('.inputData').value
 
     var promptBox = document.querySelector('.promptBox');
     promptBox.innerHTML = "";
@@ -21,26 +21,25 @@ function runTuringMachine() {
     actualUserInputIndex = 0;
 
     success = false;
-    outputString = ''
 
     for (var i = 0; i < statesList.length; i++) {
         if (statesList[i].initial) {
-            validateState(userInput, i);
+            validateState(i);
         }
     }
 
     if (success) {
-        alert('Aceito - ' + outputString);
+        alert('Aceito - ' + userInput);
     } else {
-        alert('Não aceito - ' + outputString);
+        alert('Não aceito - ' + userInput);
     }
 }
 
-function validateState(userInput, stateIndex) {
+function validateState(stateIndex) {
     for (var i = 0; i < transitionsMap.length; i++) {
         if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
-            outputString += transitionsMap[i].writeValue;
-            actualUserInputIndex = userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) + transitionsMap[0].readValue.length;
+            userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+            actualUserInputIndex++;
 
             stateIndex = transitionsMap[i].exitState
 
@@ -52,4 +51,8 @@ function validateState(userInput, stateIndex) {
             validateState(userInput, stateIndex);
         }
     }
+}
+
+String.prototype.replaceAt=function(index, replacement) {
+    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
