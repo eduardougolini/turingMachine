@@ -41,12 +41,12 @@ canvas {
 
 .promptBox {
     width: 450px;
-    height: 170px;
+    height: 250px;
     float: left;
     position: absolute;
     display: block;
     background-color: white;
-    margin-top: calc(100vh - 50% - 85px);
+    margin-top: calc(100vh - 50% - 125px);
     margin-left: calc(100vw - 50% - 225px);
     box-shadow: black 1px 1px 20px;
     text-align: center;
@@ -81,6 +81,10 @@ canvas {
 
 .promptBox select {
     width: 145px;
+}
+
+.promptBox .inputData.first {
+    margin-top: 13%;
 }
 
 .hidden {
