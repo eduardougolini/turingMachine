@@ -60,12 +60,11 @@ function getTransitionData() {
 
     var promptBoxStructure = 'Valor de leitura da primeira fita: <input class="readValue first" type="text" /><br/>' +
         'Valor de escrita da primeira fita: <input class="writeValue first" type="text" /><br/>' +
-        'Orientação da escrita da primeira fita: <select class="writeOrientation first"><option value="D">D</option><option value="E">E</option></select><br/><br/>' +
+        'Orientação da escrita da primeira fita: <select class="writeOrientation first"><option value="D">D</option><option value="E">E</option><option value="S">S</option></select><br/><br/>' +
         'Valor de leitura da segunda fita: <input class="readValue second" type="text" /><br/>' +
         'Valor de escrita da segunda fita: <input class="writeValue second" type="text" /><br/>' +
-        'Orientação da escrita da segunda fita: <select class="writeOrientation second"><option value="D">D</option><option value="E">E</option></select><br/>' +
+        'Orientação da escrita da segunda fita: <select class="writeOrientation second"><option value="D">D</option><option value="E">E</option><option value="S">S</option></select><br/>' +
         '<a class="saveButton" onclick="saveTransitionData()">Salvar</a>'
-
     promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
 }
 

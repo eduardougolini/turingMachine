@@ -45,8 +45,25 @@ function validateState() {
             validateStateInRightOrientation(i);
         } else if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].firstTapeWriteOrientation == 'E') {
             validateStateInLeftOrientation(i);
+        } else if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].writeOrientation == 'S') {
+            validateStateInStopOrientation(i);
         }
 
+    }
+}
+
+function validateStateInStopOrientation(i) {
+    if (firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
+        firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
+        secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
+
+        stateIndex = transitionsMap[i].exitState
+
+        if (statesList[stateIndex].final) {
+            success = true;
+        }
+
+        validateState();
     }
 }
 
