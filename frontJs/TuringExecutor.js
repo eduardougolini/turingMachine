@@ -1,4 +1,4 @@
-var actualUserInputIndex, success, userInput;
+var actualUserInputIndex, success, userInput, stateIndex;
 
 function executeTuringMachine(event) {
     var promptBox = document.querySelector('.promptBox');
@@ -24,7 +24,8 @@ function runTuringMachine() {
 
     for (var i = 0; i < statesList.length; i++) {
         if (statesList[i].initial) {
-            validateState(i);
+            stateIndex = i;
+            validateState();
         }
     }
 
@@ -35,22 +36,35 @@ function runTuringMachine() {
     }
 }
 
-function validateState(stateIndex) {
+function validateState() {
     for (var i = 0; i < transitionsMap.length; i++) {
 
-        if (transitionsMap[i].writeOrientation == 'D') {
-            validateStateInRightOrientation(stateIndex, i);
-        } else {
-            validateStateInLeftOrientation(stateIndex, i);
+        if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].writeOrientation == 'D') {
+            validateStateInRightOrientation(i);
+        } else if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].writeOrientation == 'E') {
+            validateStateInLeftOrientation(i);
         }
 
     }
 }
 
-function validateStateInLeftOrientation(stateIndex, i) {
-    actualUserInputIndex--;
+function validateStateInLeftOrientation(i) {
+    if (userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
+        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
+        actualUserInputIndex--;
 
-    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
+        stateIndex = transitionsMap[i].exitState
+
+        if (statesList[stateIndex].final) {
+            success = true;
+        }
+
+        validateState();
+    }
+}
+
+function validateStateInRightOrientation(i) {
+    if (userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
         userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
         actualUserInputIndex++;
 
@@ -60,22 +74,7 @@ function validateStateInLeftOrientation(stateIndex, i) {
             success = true;
         }
 
-        validateState(stateIndex);
-    }
-}
-
-function validateStateInRightOrientation(stateIndex, i) {
-    if (transitionsMap[i].entryState == stateIndex && userInput.indexOf(transitionsMap[i].readValue, actualUserInputIndex) == actualUserInputIndex) {
-        userInput = userInput.replaceAt(actualUserInputIndex, transitionsMap[i].writeValue);
-        actualUserInputIndex++;
-
-        stateIndex = transitionsMap[i].exitState
-
-        if (statesList[stateIndex].final) {
-            success = true;
-        }
-
-        validateState(stateIndex);
+        validateState();
     }
 }
 
