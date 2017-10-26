@@ -1,4 +1,4 @@
-var actualUserInputIndex, success, firstUserInput, secondUserInput;
+var actualUserInputIndex, success, firstUserInput, secondUserInput, stateIndex;
 
 function executeTuringMachine(event) {
     var promptBox = document.querySelector('.promptBox');
@@ -26,7 +26,8 @@ function runTuringMachine() {
 
     for (var i = 0; i < statesList.length; i++) {
         if (statesList[i].initial) {
-            validateState(i);
+            stateIndex = i;
+            validateState();
         }
     }
 
@@ -37,22 +38,36 @@ function runTuringMachine() {
     }
 }
 
-function validateState(stateIndex) {
+function validateState() {
     for (var i = 0; i < transitionsMap.length; i++) {
 
-        if (transitionsMap[i].firstTapeWriteOrientation == 'D') {
-            validateStateInRightOrientation(stateIndex, i);
-        } else {
-            validateStateInLeftOrientation(stateIndex, i);
+        if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].firstTapeWriteOrientation == 'D') {
+            validateStateInRightOrientation(i);
+        } else if (transitionsMap[i].entryState == stateIndex && transitionsMap[i].firstTapeWriteOrientation == 'E') {
+            validateStateInLeftOrientation(i);
         }
 
     }
 }
 
-function validateStateInLeftOrientation(stateIndex, i) {
-    actualUserInputIndex--;
+function validateStateInLeftOrientation(i) {
+    if (firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
+        firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
+        secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
+        actualUserInputIndex--;
 
-    if (transitionsMap[i].entryState == stateIndex && firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
+        stateIndex = transitionsMap[i].exitState
+
+        if (statesList[stateIndex].final) {
+            success = true;
+        }
+
+        validateState();
+    }
+}
+
+function validateStateInRightOrientation(i) {
+    if (firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
         firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
         secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
         actualUserInputIndex++;
@@ -63,23 +78,7 @@ function validateStateInLeftOrientation(stateIndex, i) {
             success = true;
         }
 
-        validateState(stateIndex);
-    }
-}
-
-function validateStateInRightOrientation(stateIndex, i) {
-    if (transitionsMap[i].entryState == stateIndex && firstUserInput.indexOf(transitionsMap[i].firstTapeReadValue, actualUserInputIndex) == actualUserInputIndex && secondUserInput.indexOf(transitionsMap[i].secondTapeReadValue, actualUserInputIndex) == actualUserInputIndex) {
-        firstUserInput = firstUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].firstTapeWriteValue);
-        secondUserInput = secondUserInput.replaceAt(actualUserInputIndex, transitionsMap[i].secondTapeWriteValue);
-        actualUserInputIndex++;
-
-        stateIndex = transitionsMap[i].exitState
-
-        if (statesList[stateIndex].final) {
-            success = true;
-        }
-
-        validateState(stateIndex);
+        validateState();
     }
 }
 
