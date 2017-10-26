@@ -53,7 +53,7 @@ function getTransitionData() {
 
     var promptBoxStructure = 'Valor de leitura: <input class="readValue" type="text" /><br/>' +
         'Valor de escrita: <input class="writeValue" type="text" /><br/>' +
-        'Orientação da escrita: <select class="writeOrientation"><option value="D">D</option><option value="E">E</option></select><br/>' +
+        'Orientação da escrita: <select class="writeOrientation"><option value="D">D</option><option value="E">E</option><option value="S">S</option></select><br/>' +
         '<a class="saveButton" onclick="saveTransitionData()">Salvar</a>'
 
     promptBox.insertAdjacentHTML('beforeend', promptBoxStructure);
